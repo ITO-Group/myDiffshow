@@ -13,6 +13,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import static java.lang.Math.max;
+
 /**
  * TODO: document your custom view class.
  */
@@ -20,7 +22,7 @@ public class GridView extends View {
     int screenHeight;
     int screenWidth;
 
-    final static int ROW_NUM = 32;
+    final static int ROW_NUM = 28;
     final static int COL_NUM = 16;
     final static int maxVal = 2800;
     final static int minVal = 0;
@@ -64,7 +66,7 @@ public class GridView extends View {
         for(int i = 0;i<ROW_NUM;i++){
             for(int j = 0;j<COL_NUM;j++){
                 int left = j*capaWidth;
-                int top = i*capaHeight;
+                int top = (i-1)*capaHeight;
                 int right=left+capaWidth;
                 int bottom = top+capaHeight;
                 rects[i][j] = new Rect(left,top,right,bottom);
@@ -101,16 +103,17 @@ public class GridView extends View {
                 canvas.drawRect(rects[i][j],paints[i][j]);
                 // fill in rect with proper color
                 paints[i][j].setStyle(Paint.Style.FILL);
-                int r=255;int g=255;int b;
+                int r=255;int g=255;int b=255;
                 int tmp = (Math.abs(diffData[i][j])) / 5;
-                b = 255 - tmp;
+                g = max(255 - tmp,0);
+                r = max(255-tmp,0);
+                b = max(255-tmp,0);
                 paints[i][j].setColor(Color.rgb(r,g,b));
                 canvas.drawRect(rects[i][j],paints[i][j]);
                 // draw capacity number
                 paints[i][j].setColor(Color.BLACK);
                 paints[i][j].setTextSize(30);
                 canvas.drawText(Short.toString(diffData[i][j]),(float)(rects[i][j].left)+15,(float)(rects[i][j].top)+30,paints[i][j]);
-
             }
         }
     }
