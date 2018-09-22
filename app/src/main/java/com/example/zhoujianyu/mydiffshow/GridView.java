@@ -22,7 +22,7 @@ public class GridView extends View {
     int screenHeight;
     int screenWidth;
 
-    final static int ROW_NUM = 28;
+    final static int ROW_NUM = 32;
     final static int COL_NUM = 16;
     final static int maxVal = 2800;
     final static int minVal = 0;
@@ -105,7 +105,7 @@ public class GridView extends View {
                 paints[i][j].setStyle(Paint.Style.FILL);
                 int r=255;int g=255;int b=255;
                 int tmp = (Math.abs(diffData[i][j])) / 5;
-                g = max(255 - tmp,0);
+                g = max(255-tmp,0);
                 r = max(255-tmp,0);
                 b = max(255-tmp,0);
                 paints[i][j].setColor(Color.rgb(r,g,b));
